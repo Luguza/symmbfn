@@ -1,0 +1,10 @@
+_target_: symmbfn.model.model.CrystalDNG
+cost_coord: 1
+cost_lattice: 0.1
+cost_type: 3
+cost_sym: 10
+val_repeats: 20
+
+defaults:
+  - bfn: bfn_dng
+

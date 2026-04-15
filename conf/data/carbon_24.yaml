@@ -1,0 +1,76 @@
+root_path: ${oc.env:PROJECT_ROOT}/data/carbon_24
+prop: energy_per_atom
+num_targets: 1
+# prop: scaled_lattice
+# num_targets: 6
+niggli: true
+primitive: false
+graph_method: crystalnn
+preprocess_workers: 30
+readout: mean
+max_atoms: 20
+otf_graph: false
+scaling: true
+
+normalizer_dict: 
+    pos: 1.0
+    one_hot: 1.0
+    types: 100
+
+train_max_epochs: 4000
+early_stopping_patience: 3000
+teacher_forcing_max_epoch: 1500
+
+
+datamodule:
+  _target_: symmbfn.data.datamodule.CrystDataModule
+
+  datasets:
+    train:
+      _target_: symmbfn.data.dataset.CrystDataset
+      name: Formation energy train
+      path: ${data.root_path}/train.csv
+      save_path: ${data.root_path}/train_ori.pt
+      prop: ${data.prop}
+      niggli: ${data.niggli}
+      primitive: ${data.primitive}
+      graph_method: ${data.graph_method}
+      data_augmentation: false
+      scaling: ${data.scaling}
+      preprocess_workers: ${data.preprocess_workers}
+
+    val:
+      - _target_: symmbfn.data.dataset.CrystDataset
+        name: Formation energy val
+        path: ${data.root_path}/val.csv
+        save_path: ${data.root_path}/val_ori.pt
+        prop: ${data.prop}
+        niggli: ${data.niggli}
+        primitive: ${data.primitive}
+        graph_method: ${data.graph_method}
+        data_augmentation: false
+        scaling: ${data.scaling}
+        preprocess_workers: ${data.preprocess_workers}
+
+    test:
+      - _target_: symmbfn.data.dataset.CrystDataset
+        name: Formation energy test
+        path: ${data.root_path}/test.csv
+        save_path: ${data.root_path}/test_ori.pt
+        prop: ${data.prop}
+        niggli: ${data.niggli}
+        primitive: ${data.primitive}
+        graph_method: ${data.graph_method}
+        data_augmentation: false
+        scaling: false
+        preprocess_workers: ${data.preprocess_workers}
+
+  num_workers:
+    train: 7
+    val: 7
+    test: 7
+
+  batch_size:
+    train: 256
+    val: 256
+    test: 256
