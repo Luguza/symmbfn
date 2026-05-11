@@ -71,8 +71,8 @@ python symmbfn/model/symmbfn_train.py -m \
 |---|---|---|
 | `model.bfn.sigma1_coord` | 0.02 | Coordinate noise schedule end-point |
 | `model.bfn.sigma1_lattice` | 0.02 | Lattice noise schedule end-point |
-| `model.bfn.beta1` | 0.75 | Discrete atom type noise parameter |
-| `model.bfn.beta1_sym` | 1.5 | Symmetry noise parameter |
+| `model.bfn.beta1` | 0.25 | Discrete atom type noise parameter |
+| `model.bfn.beta1_sym` | 2.5 | Symmetry noise parameter |
 | `model.bfn.sample_steps` | 100 | Steps used during generation |
 | `model.cost_coord` | 1 | Coordinate loss weight |
 | `model.cost_lattice` | 0.1 | Lattice loss weight |
