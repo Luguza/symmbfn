@@ -1,3 +1,9 @@
+# torch 1.9.0's tensorboard import does `from setuptools import distutils` and then
+# accesses `distutils.version`, which setuptools>=60 no longer imports as a side effect.
+# Force-load the submodule first so the import works with modern setuptools (kept >=64
+# for the PEP 660 editable build). Must run before torch/pytorch_lightning are imported.
+import setuptools._distutils.version  # noqa: F401
+
 from pathlib import Path
 
 from pytorch_lightning.loggers import WandbLogger
